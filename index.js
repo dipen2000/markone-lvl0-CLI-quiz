@@ -1,79 +1,54 @@
-const chalk = require('chalk');
-
-console.log(chalk.blue('Hello world!'));
-console.log("Welcome to the quiz where your knowledge will be tested about me, and I wil get to know how well you know me.");
 var readlineSync = require('readline-sync');
-let userName = readlineSync.question(chalk.blue("Can i know your name please "));
-console.log("Welcome " +chalk.yellow(userName));
+const queBank = [
+  {question : "What is my age? ", answer : "20"},
+  {question : "What is my favorite color? ", answer : "Purple"},
+  {question : "What is my favorite person dead or alive? " , answer : "Steve Jobs"},
+  {question : "What is my hometown? ", answer : "Rajkot"},
+  {question : "What is my house in Hogwarts? ", answer : "Gryffindor"}
+];
 
-const age = 20;
-const color = "Purple";
-const person = "Steve Jobs"
-let count = 0;
-if (readlineSync.keyInYN(chalk.blue('Are you sure you wanna start?'))) {
-  // 'Y' key was pressed.
-  console.log('OK good to go');
-  console.log("I am going to ask you threee questions let's see How   many of the them you get right..");
+let highScore = [
+  {
+    name : "Dipen",
+    score : "5"
+  },
+  {
+    name : "My mom",
+    score : "4"
+  }
+];
+let score = 0;
 
-  let dipenAge = readlineSync.question(chalk.blue("what is my age? "));
-  if(+dipenAge === age){
-    console.log(chalk.green("Noted."))
-    count++;
-  }
-  else if(dipenAge === ""){
-    console.log(chalk.magenta("You passed this one."));
-  }
-  else{
-    console.log(chalk.green("Noted."))
-  }
+let userName = readlineSync.question('May I have your name please? ');
+console.log("Welcome to this quiz " + userName);
+console.log("This is quick quiz to test how well you know me.");
 
-  console.log(chalk.cyanBright("Moving to the next question."))
-
-  let dipenColor = readlineSync.question(chalk.blue("what is my favourite color? "));
-  if(dipenColor === color){
-    console.log(chalk.green("Noted."))
-    count++;
-  }
-  else if(dipenColor === ""){
-    console.log(chalk.magenta("You passed this one"));
-  }
-  else{
-    console.log(chalk.green("Noted."))
-  }
-
-  console.log(chalk.cyanBright("Moving to the next question."))
-
-  let dipenPerson = readlineSync.question(chalk.blue("what is my favourite person dead or alive? "));
-  if(dipenPerson === person){
-    console.log(chalk.green("Noted."))
-    count++;
-  }
-  else if(dipenPerson === ""){
-    console.log(chalk.magenta("You passed this one"));
-  }
-  else{
-    console.log(chalk.green("Noted."))
-  }
-
-  console.log(chalk.yellow("Result coming in 2 sec precisely..."));
-  let timer = setTimeout(()=>{
-    console.log("Right answer " + age);
-    console.log("Your answer " + dipenAge);
-    console.log("Right answer " + color);
-    console.log("Your answer " + dipenColor);
-    console.log("Right answer " + person);
-    console.log("Your answer " + dipenPerson);
-    if(count===3){
-      console.log(chalk.green("Congratulations you got 3 out of 3"));
+function play(question , answer){
+    let userAns = readlineSync.question(question);
+    if(userAns.toUpperCase() === answer.toUpperCase()){
+      score = score + 1;
+      console.log("Right answer!");
     }
     else{
-      console.log(chalk.yellow("You got " + count + " out of 3"));
+      score = score - 1;
+      console.log("Wrong answer!");
     }
-  },2000);
-} 
-
-else {
-  // Another key was pressed.
-  console.log(chalk.magenta('ok no problem some other time.'));
+    console.log("Score : " + score);
+    console.log("----------------");
 }
 
+for(let i = 0;i<queBank.length;i++){
+  play(queBank[i].question , queBank[i].answer);
+}
+
+console.log("Your final score is " + score);
+console.log("----------------");
+
+
+console.log("Here are the highscores.");
+for(let i=0;i<highScore.length;i++){
+  console.log(`{Place ${i+1}}`);
+  console.log("name " + highScore[i].name);
+  console.log("score " + highScore[i].score);
+  console.log("----------------");
+}
